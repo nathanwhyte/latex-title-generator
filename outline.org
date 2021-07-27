@@ -3,9 +3,9 @@
 * outline
 ** take in info from command line:
 1. document class (?)
-3. path for new file
-4. author
-5. title
+2. path for new file
+3. author
+4. title
 
 ** create a .tex file (with a given name, at a given path)
 + use a simple REPL-style system to get new .tex file from the user

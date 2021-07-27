@@ -1,10 +1,6 @@
-use std::{
-    fs::File,
-    io::{BufRead, BufReader},
-    path::Path,
-};
-
 mod file_actions {
+    use std::{fs::File, io::{BufRead, BufReader}, path::Path};
+
     // create a file at 'given_path'
     pub fn create_file(given_path: String) -> File {
         let file_path = Path::new(&given_path);
@@ -25,7 +21,7 @@ mod file_actions {
         };
     }
 
-    // read the lines of a given file into a vector
+    // read indiviual lines of a given file into a vector
     pub fn read_lines(file: File) -> Vec<String> {
         let mut lines: Vec<String> = Vec::new();
 
