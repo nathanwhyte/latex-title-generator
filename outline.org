@@ -1,1 +1,50 @@
 #+TITLE: project outline for latex-title-generator
+
+* outline
+** take in info from command line:
+1. document class (?)
+3. path for new file
+4. author
+5. title
+
+** create a .tex file (with a given name, at a given path)
++ use a simple REPL-style system to get new .tex file from the user
+
+** generate metadata declarations in the new document:
+
+#+begin_latex
+\documentclass{given class}
+
+\author{Given Name}
+\title{Given Title}
+
+\begin{document}
+
+\maketitle
+
+\end{document}
+#+end_latex
+
+* notes
++ if "latex" is given in title, convert the word into "{\LaTeX}"
+
+* ideas
++ use flags to get new .tex file info from the user?
++ have a flag to set the author as 'Nathan Whyte' automatically
++ have a (optional) flag that sets the date
+  - date will be the day that the program runs
++ handle empty path argument
+  - path is set to the cwd
++ handle templates
+  - for authors, document types, and section structures
++ create a library for file operations
+  - opening, writing to, reading from files
+
+* tasks
+- [ ] get user input from command line
+  - [ ] prompt user to enter path, doc class, author and title
+  - [ ] add flag support
+    - [ ] '-h' and '--help' prints help page
+    - [ ] '-n' sets the author as "Nathan Whyte"
+- [ ] create a .tex file at the given path
+- [ ] fill out metadata

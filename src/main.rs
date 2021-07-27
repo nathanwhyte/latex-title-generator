@@ -1,3 +1,6 @@
+mod cli;
+pub mod files;
+
 fn main() {
-    println!("Hello, world!");
+	// TODO read in user input
 }
