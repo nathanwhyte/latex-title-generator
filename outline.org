@@ -1,6 +1,6 @@
 #+TITLE: project outline for latex-title-generator
 
-* outline
+* idea
 ** take in info from command line:
 1. document class (?)
 2. path for new file
@@ -12,7 +12,7 @@
 
 ** generate metadata declarations in the new document:
 
-#+begin_latex
+#+begin_src latex
 \documentclass{given class}
 
 \author{Given Name}
@@ -23,13 +23,19 @@
 \maketitle
 
 \end{document}
-#+end_latex
+#+end_src
+
+* outline
+** get user input
+*** REPL to get new file metadata
+**** no flags (yet)
+*** create the new file at given path
+**** need a better way to get the path
 
 * notes
 + if "latex" is given in title, convert the word into "{\LaTeX}"
 
 * ideas
-+ use flags to get new .tex file info from the user?
 + have a flag to set the author as 'Nathan Whyte' automatically
 + have a (optional) flag that sets the date
   - date will be the day that the program runs
@@ -37,14 +43,24 @@
   - path is set to the cwd
 + handle templates
   - for authors, document types, and section structures
-+ create a library for file operations
-  - opening, writing to, reading from files
++ convert '~/' to '$HOME'
+
+* questions
++ use flags to get new .tex file info from the user?
++ use given title as part of the file name?
+  - wait to create the file until after all data is collected
++ compile a PDF automatically?
+
+* issues
+** file creation/opening giving errors
++ *SOLUTION*: rust needs the full path, can't use '~/'
 
 * tasks
-- [ ] get user input from command line
-  - [ ] prompt user to enter path, doc class, author and title
+- [-] get user input from command line
+  - [X] prompt user to enter path, doc class, author and title
   - [ ] add flag support
     - [ ] '-h' and '--help' prints help page
     - [ ] '-n' sets the author as "Nathan Whyte"
-- [ ] create a .tex file at the given path
+    - [ ] '-a' sets the document class to article
+- [X] create a .tex file at the given path
 - [ ] fill out metadata

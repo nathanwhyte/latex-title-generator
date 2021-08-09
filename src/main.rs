@@ -1,3 +1,4 @@
+use io::Write;
 use std::{fs::File, io};
 
 mod files;
@@ -45,7 +46,26 @@ fn get_file_data(what_data: String) -> String {
 }
 
 fn put_file_metadata(file_data: FileMetadata) {
-	create_tex_file(file_data.path, file_data.title);
+	let mut tex_file: File = create_tex_file(file_data.path, file_data.title.clone());
+
+	writeln!(
+		&mut tex_file,
+		"\\documentclass{}{}{}\n",
+		'{', file_data.class, '}'
+	)
+	.expect("error writing to file");
+
+	writeln!(&mut tex_file, "\\author{}{}{}", '{', file_data.author, '}')
+		.expect("error writing to file");
+
+	writeln!(&mut tex_file, "\\title{}{}{}\n", '{', file_data.title, '}')
+		.expect("error writing to file");
+
+	writeln!(&mut tex_file, "\\begin{}document{}\n", '{', '}').expect("error writing to file");
+
+	writeln!(&mut tex_file, "\\maketitle\n").expect("error writing to file");
+
+	writeln!(&mut tex_file, "\\end{}document{}\n", '{', '}').expect("error writing to file");
 }
 
 fn create_tex_file(path: String, title: String) -> File {
@@ -64,9 +84,6 @@ fn create_tex_file(path: String, title: String) -> File {
 	path_copy.push_str(&file_name_in_path);
 
 	println!("full path: {}", &path_copy);
-
-	// TODO add an extra '/' to path_copy before file_name_lower
-	// TODO add '.tex' to the end of path_copy
 
 	return files::create_file(&path_copy);
 }
