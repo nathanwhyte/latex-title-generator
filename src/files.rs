@@ -1,5 +1,6 @@
 // module to handle some file actions
 
+use dirs::{self, home_dir};
 use std::{
 	fs::File,
 	io::{BufRead, BufReader},
@@ -7,8 +8,9 @@ use std::{
 };
 
 // create a file at 'given_path'
-pub fn create_file(given_path: String) -> File {
-	let file_path = Path::new(&given_path);
+pub fn create_file(given_path: &str) -> File {
+	let new_path = build_path(given_path);
+	let file_path = Path::new(new_path.as_str());
 
 	return match File::create(&file_path) {
 		Ok(file) => file,
@@ -17,13 +19,27 @@ pub fn create_file(given_path: String) -> File {
 }
 
 // open a file at 'given_path'
-pub fn open_file(given_path: String) -> File {
-	let file_path = Path::new(&given_path);
+pub fn open_file(given_path: &str) -> File {
+	let new_path = build_path(given_path);
+	let file_path = Path::new(new_path.as_str());
 
 	return match File::open(&file_path) {
 		Ok(file) => file,
 		Err(why) => panic!("could not open {}: {}", file_path.display(), why),
 	};
+}
+
+// create a path to a file
+fn build_path(path: &str) -> String {
+	let home_dir = home_dir().unwrap();
+	let mut home_dir_string = String::from(home_dir.to_str().unwrap());
+	home_dir_string.push('/');
+
+	if path.starts_with("~/") {
+		return path.replace("~/", home_dir_string.clone().as_str());
+	}
+
+	return String::from(path);
 }
 
 // read indiviual lines of a given file into a vector
